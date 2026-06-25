@@ -1,0 +1,135 @@
+
+
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lời thầm kín</title>
+  <style>
+    body{
+      margin:0;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,#ffd4e8,#ffffff,#ffebf5);
+      font-family:Inter,system-ui;
+      overflow:hidden;
+      touch-action:manipulation;
+    }
+
+    .container{
+      text-align:center;
+      padding:20px;
+    }
+
+    .avatar{
+      width:220px;
+      height:220px;
+      border-radius:20px;
+      overflow:hidden;
+      margin:0 auto;
+      border:4px solid rgba(255,255,255,0.7);
+      box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover}
+
+    h1{margin:22px 0 10px;color:#c2185b;font-size:26px;font-weight:700}
+    p{color:#5a0032;font-size:18px;margin:0 0 14px}
+
+    /* hearts */
+    .heart{
+      position:fixed;
+      pointer-events:none;
+      font-size:26px;
+      animation:floatUp 3s ease-out forwards;
+    }
+
+    @keyframes floatUp{
+      0%{opacity:0;transform:translateY   (30px) scale(0.6)}
+      20%{opacity:1}
+      100%{opacity:0;transform:translateY(-220px) scale(1.2)}
+    }
+       .a{
+      display:flex;
+      top: 10px;
+      left: 10px;
+      width: 20px;
+      height: 100px;
+      z-index: 1000;
+      pointer-events: none;
+
+    }
+    .tap-hint{
+      position:fixed;
+      bottom:32px;
+      left:50%;
+      transform:translateX(-50%);
+      background:rgba(255,255,255,0.6);
+      padding:10px 20px;
+      font-size:16px;
+      border-radius:14px;
+      color:#ad1457;
+      box-shadow:0 4px 15px rgba(0,0,0,0.15);
+      animation:pulse 1.8s infinite;
+    }
+
+    @keyframes pulse{
+      0%,100%{transform:translateX(-50%) scale(1)}
+      50%{transform:tránslateX(-50%) scale(1.07)}
+    }
+  </style>
+</head>
+<body>
+  <div class ="a"><img src ="./giphy.webp"></div>
+
+<div class="container" id="tapArea">
+  <div class="avatar"><img src="/382d43fb-9c2c-4f24-948c-bc88dab03e80.jpg" alt=" Thùy Anh"></div>
+<h1>Gửi Thanh Huyền đáng yêu 💖</h1>
+  <p>Món Quà dành cho  Thanh Huyền</p>
+</div>
+
+<div class="tap-hint" id="hint">Chạm vào màn hình đi Thanh Huyền🎶</div>
+
+<audio id="audio" loop preload="auto">
+  <source src="./Tình Yêu Khủng Long (Tijak City Pop Remix).mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById('audio');
+  const hint = document.getElementById('hint');
+
+  let musicStarted = false;
+
+  function playMusic(){
+    if(!musicStarted){
+      audio.play();
+      hint.style.display = 'none';
+      musicStarted = true;
+      startHeartRain();
+    }
+  }
+
+  document.body.addEventListener('click', playMusic);
+  document.body.addEventListener('touchstart', playMusic);
+
+  function startHeartRain(){
+    setInterval(()=>{
+      createHeart(Math.random()*window.innerWidth, window.innerHeight - 40);
+    }, 350);
+  }
+
+  function createHeart(x,y){
+    const h = document.createElement('div');
+    h.className = 'heart';
+    h.innerHTML = '💗';
+    h.style.left = x + 'px';
+    h.style.top = y + 'px';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(), 3200);
+  }
+</script>
+
+</body>
+</html>
